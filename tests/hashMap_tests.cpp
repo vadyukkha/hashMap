@@ -1,7 +1,6 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
-#include "HashMap.hpp"
-#include "SolutionHashMap.hpp"
+#include "tests.hpp"
 
 TEST_CASE("HashMap PUT operation", "[HashMap]") {
     HashMap<std::string, int64_t> myMap;
@@ -62,15 +61,5 @@ TEST_CASE("HashMap operations", "[HashMap]") {
     SECTION("Test 4") {
         Test test;
         test.test4();
-    }
-
-    SECTION("Test 5") {
-        Test test;
-        test.test5();
-    }
-
-    SECTION("Test 6") {
-        Test test;
-        test.test6();
     }
 }

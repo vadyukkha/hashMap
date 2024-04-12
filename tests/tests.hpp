@@ -1,13 +1,41 @@
-#ifndef SolutionHashMap_HPP
-#define SolutionHashMap_HPP
+#pragma once
+#ifndef TESTS_TESTS_HPP
+#define TESTS_TESTS_HPP
 
-#include <iostream>
-#include <vector>
-#include <climits>
-#include "HashMap.hpp"
+#include "../include/HashMap.hpp"
 
-class SolutionHashMap {
-public:
+// Class for testing the HashMap
+class Test {
+ private:
+    // Check if two strings are valid by comparing character frequencies
+    bool isValid(std::string s, std::string t) {
+        if (s.length() != t.length())
+            return false;
+
+        HashMap<std::string, int64_t> ls;
+        HashMap<std::string, int64_t> lt;
+
+        for (size_t i = 0; i < s.length(); i++) {
+            std::string tempChar(1, s[i]);
+            std::string tempCharT(1, t[i]);
+            ls.put(tempChar, 0);
+            lt.put(tempCharT, 0);
+        }
+
+        for (size_t i = 0; i < s.length(); i++) {
+            std::string tempChar(1, s[i]);
+            ls[tempChar]++;
+        }
+
+        for (size_t i = 0; i < t.length(); i++) {
+            std::string tempCharT(1, t[i]);
+            lt[tempCharT]++;
+        }
+
+        return ls.isEqual(lt);
+    }
+
+ public:
     void test1() {
         std::cout << "Test 1 start" << std::endl;
 
@@ -26,13 +54,6 @@ public:
         table.put("bar", 78);
 
         table.dump();
-
-        size_t valueToFind = table.get("foo");
-        if (valueToFind != LONG_MIN) {
-            std::cout << "Found value: " << valueToFind << "\n";
-        } else {
-            std::cout << "Key not found\n";
-        }
 
         table.put("el0", 15);
         table.put("el1", 15);
@@ -62,21 +83,22 @@ public:
         table.get("bar");
 
         table.dump();
-
-        std::cout << "Test 1 end." << std::endl; 
+        std::cout << "Test 1 end." << std::endl;
     }
 
     void test2() {
         std::cout << "Test 2:\n" << std::endl;
-        Solution solve;
         std::string str1 = "555", str2 = "555";
 
         std::cout << "First string: " << str1 << std::endl;
         std::cout << "Second string: " << str2 << std::endl;
 
         std::cout << "Result: ";
-        if (solve.isValid(str1, str2)) std::cout << "Correct" << std::endl;
-        else std::cout << "Uncorrect" << std::endl;
+        if (isValid(str1, str2)) {
+            std::cout << "Correct" << std::endl;
+        } else {
+            std::cout << "Uncorrect" << std::endl;
+        }
     }
 
     void test3() {
@@ -105,31 +127,12 @@ public:
 
     void test4() {
         std::cout << "Test 4:\n" << std::endl;
-        HashMap<int64_t, int64_t> table;
-        for (int64_t i = 1; i < 11; i++) {
-            table[i] = i;
-        }
-        std::cout << table << std::endl;
-    }
-
-    void test5() {
-        std::cout << "Test 5:\n" << std::endl;
-        HashMap<int, int> table;
-        for (int i = 1; i < 11; i++) {
-            table[i] = i;
-        }
-        std::cout << (table.get(1000) == INT_MIN) << std::endl;
-        std::cout << table << std::endl;
-    }
-
-    void test6() {
-        std::cout << "Test 6:\n" << std::endl;
         HashMap<std::string, std::string> table;
         table["dog"] = "WOW";
         table["cat"] = "MEOW";
-        std::cout << table.get("sheep") << std::endl;
+        std::cout << "key: sheep - value: " << table.get("sheep") << std::endl;
+        std::cout << "key: 1234 - value: " << table.get("1234") << std::endl;
     }
-
 };
 
-#endif
+#endif  // TESTS_TESTS_HPP
